@@ -8,13 +8,11 @@ class Environment {
   public function __construct($watch_directory, $log_directory = './logs') {
     // Watch directory
     if (!file_exists($watch_directory)) {
-      throw new Exception("Directory $watch_directory does not exist.");
+      throw new \Exception("Directory $watch_directory does not exist.");
     }
     $this->watch_directory = $watch_directory;
     // Log directory
-    if (!file_exists($log_directory)) {
-      mkdir($log_directory);
-    }
+    $this->log_directory = $log_directory;
   } 
   public function getWatchDirectory() {
     return $this->watch_directory;
@@ -23,3 +21,5 @@ class Environment {
     return $this->log_directory;
   }
 }
+
+?>
