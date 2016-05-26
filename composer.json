@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "Broadview\\": "src/Broadview"
+    }
+  },
+  "require": {
+    "katzgrau/klogger": "dev-master",
+    "silex/silex": "1.3"
+  }
+}
