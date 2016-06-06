@@ -3,7 +3,9 @@
 namespace Broadview;
 
 class FileHandler {
-  protected $allowed_extensions = array('xml');
+  protected $allowed_extensions = array('txt', 'csv');
+  protected $new_line = "\n";
+  protected $delimiter = "\t";
   public function __construct(Environment $environment) {
     $this->environment = $environment;
   }
@@ -23,7 +25,18 @@ class FileHandler {
     return array_pop($ordered_files);
   }
   public function getContents($file) {
-    return simplexml_load_file($file);
+    $data = file_get_contents($file);
+    $data = explode($this->new_line, $data); 
+    $headers = array_shift($data);
+    $headers = explode($this->delimiter, str_replace('"', '', $headers));
+    $output = array();
+    foreach ($data AS $row) {
+      $bits = explode($this->delimiter, str_replace('"', '', utf8_encode($row)));
+      if (count($bits) == count($headers)) {
+        $output[] = array_combine($headers, $bits);
+      }
+    }
+    return $output;
   }
 }
 

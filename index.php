@@ -21,8 +21,8 @@ $app->get('/', function() use($app) {
      $fh = new FileHandler($app['environment']);
      $nf = $fh->getNewestFile();
      $app['schedule_logger']->info('Latest Schedule: ' . $nf);
-     $xml = $fh->getContents($nf);
-     return $app->json($xml);
+     $data = $fh->getContents($nf);
+     return $app->json($data);
    }
    catch (\Exception $e) {
      $app['schedule_logger']->error($e->getMessage());
